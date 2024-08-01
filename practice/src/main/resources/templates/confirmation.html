@@ -7,6 +7,7 @@
 <body>
   <h1>お問い合わせ内容の確認</h1>
   <form th:action="@{/contact/register}" th:object="${contactForm}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <table border="1">
       <tr>
         <td>姓</td>
