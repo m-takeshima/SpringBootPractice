@@ -7,11 +7,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -22,14 +24,15 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/admin/signup", "/admin/signin", "/contact", "/contact/confirm", "/contact/register", "/contact/complete").permitAll()
+                    .requestMatchers("/admin/signup", "/admin/signin").permitAll()
+                    .requestMatchers("/admin/contacts/**").authenticated() // これで全ての `/admin/contacts` 関連ページをカバー
                     .requestMatchers("/admin/**").authenticated()
             )
             .formLogin(formLogin ->
                 formLogin
                     .loginPage("/admin/signin")
                     .loginProcessingUrl("/admin/signin")
-                    .defaultSuccessUrl("/contact", true)
+                    .defaultSuccessUrl("/admin/contacts", true)
                     .permitAll()
             )
             .logout(logout ->
@@ -38,12 +41,8 @@ public class SecurityConfig {
                     .logoutSuccessUrl("/admin/signin")
                     .permitAll()
             )
-            .exceptionHandling(exceptionHandling ->
-                exceptionHandling
-                    .accessDeniedPage("/access-denied")
-            )
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/contact/complete") // CSRFトークンを無視するパス（必要に応じて変更）
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // CSRF トークンを Cookie に保存してクライアントに提供
             );
 
         return http.build();

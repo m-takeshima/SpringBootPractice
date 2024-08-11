@@ -1,62 +1,122 @@
 package com.example.demo.form;
 
-import java.io.Serializable;
-
-import com.example.demo.entity.Contact;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
 
-@Data
-public class ContactForm implements Serializable {
-    @NotBlank
+public class ContactForm {
+    private Long id;
+
+    @NotBlank(message = "姓は必須です")
     private String lastName;
 
-    @NotBlank
+    @NotBlank(message = "名は必須です")
     private String firstName;
 
-    @NotBlank
-    @Email
+    @Email(message = "メールアドレスが無効です")
+    @NotBlank(message = "メールアドレスは必須です")
     private String email;
 
-    @NotBlank
-    @Size(min = 10, max = 11)
     private String phone;
-
-    @NotBlank
-    @Pattern(regexp = "[0-9]{3}[-]{0,1}[0-9]{4}")
     private String zipCode;
-
-    @NotBlank
     private String address;
-
-    @NotBlank
     private String buildingName;
-
-    @NotEmpty
     private String contactType;
-
-    @NotBlank
     private String body;
 
-    // Contactオブジェクトを受け取るコンストラクタ
-    public ContactForm(Contact contact) {
-        this.lastName = contact.getLastName();
-        this.firstName = contact.getFirstName();
-        this.email = contact.getEmail();
-        this.phone = contact.getPhone();
-        this.zipCode = contact.getZipCode();
-        this.address = contact.getAddress();
-        this.buildingName = contact.getBuildingName();
-        this.contactType = contact.getContactType();
-        this.body = contact.getBody();
+    // コンストラクタ
+    public ContactForm() {}
+
+    public ContactForm(Long id, String lastName, String firstName, String email, String phone, String zipCode, String address, String buildingName, String contactType, String body) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.phone = phone;
+        this.zipCode = zipCode;
+        this.address = address;
+        this.buildingName = buildingName;
+        this.contactType = contactType;
+        this.body = body;
     }
 
-    // デフォルトコンストラクタ
-    public ContactForm() {
+    // Getter と Setter
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
+
+    public String getContactType() {
+        return contactType;
+    }
+
+    public void setContactType(String contactType) {
+        this.contactType = contactType;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

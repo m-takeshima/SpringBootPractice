@@ -9,6 +9,6 @@ public interface ContactService {
     void saveContact(ContactForm contactForm);
     List<Contact> findAllContacts();
     Contact findContactById(Long id);
-    void updateContact(Long id, Contact updatedContact);
+    void updateContact(Long id, ContactForm contactForm);  // 修正
     void deleteContact(Long id);
 }

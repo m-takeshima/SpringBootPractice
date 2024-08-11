@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h1>お問い合わせ</h1>
-	<form th:action="@{/contact}" th:object="${contactForm}" method="post">
+	<form th:action="@{/contacts}" th:object="${contactForm}" method="post">
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 		<table border="1">
 			<tr>
