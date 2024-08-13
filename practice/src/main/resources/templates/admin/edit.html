@@ -47,7 +47,12 @@
         </table>
         <button type="submit">更新</button>
     </form>
-    <a th:href="@{/admin/contacts/{id}(id=${contactForm.id})}">キャンセル</a>
+		<!-- 削除ボタン -->
+	    <form th:action="@{/admin/contacts/{id}/delete(id=${contactForm.id})}" method="get" onsubmit="return confirm('本当に削除しますか？');">
+	        <button type="submit" style="color: red;">削除</button>
+	    </form>
+	    <!-- キャンセルボタン -->
+	    <a th:href="@{/admin/contacts/{id}(id=${contactForm.id})}"><button type="button">キャンセル</button></a>
 	<div>
 	<button onclick="location.href='/admin/signin'">ログアウト</button>
 	</div>
